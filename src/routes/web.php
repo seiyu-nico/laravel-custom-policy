@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show')->middleware('authorization:view,post');
+    // 下記指定の仕方でも問題なし
+    // Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show')->middleware('authorization:view,post:id');
 });
 
 require __DIR__.'/auth.php';
